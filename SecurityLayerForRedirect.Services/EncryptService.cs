@@ -6,9 +6,9 @@ namespace SecurityLayerForRedirect.Services;
 public class EncryptService
 {
     private readonly RSACryptoServiceProvider _csp;
-    private readonly RSAParameters _publicKey;
+    private readonly string _publicKey;
 
-    public EncryptService(RSACryptoServiceProvider csp, RSAParameters publicKey)
+    public EncryptService(RSACryptoServiceProvider csp, string publicKey)
     {
         _csp = csp;
         _publicKey = publicKey;
@@ -23,7 +23,7 @@ public class EncryptService
         // _csp.ImportRSAPublicKey(new ReadOnlySpan<byte>(_publicKey), out _);
         // _csp.ImportSubjectPublicKeyInfo(_publicKey, out _);
         // _csp.ImportCspBlob(_publicKey);
-        // _csp.ImportFromPem(_publicKey.ToString());
+        _csp.ImportFromPem(_publicKey);
         var data = Encoding.Unicode.GetBytes(plainText);
         
         var cypher = _csp.Encrypt(data, false);

@@ -6,9 +6,9 @@ namespace SecurityLayerForRedirect.Services;
 public class DecryptService
 {
     private readonly RSACryptoServiceProvider _csp;
-    private readonly RSAParameters _privateKey;
+    private readonly string _privateKey;
 
-    public DecryptService(RSACryptoServiceProvider csp, RSAParameters privateKey)
+    public DecryptService(RSACryptoServiceProvider csp, string privateKey)
     {
         _csp = csp;
         _privateKey = privateKey;
@@ -16,6 +16,7 @@ public class DecryptService
 
     public string Decrypt(string cypherText)
     {
+        _csp.ImportFromPem(_privateKey);
         var dataBytes = Convert.FromBase64String(cypherText);
 
         // _csp.ImportRSAPrivateKey(_privateKey, out _);
