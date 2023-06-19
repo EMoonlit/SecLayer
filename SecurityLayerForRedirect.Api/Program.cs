@@ -1,14 +1,12 @@
-using System.Security.Cryptography;
-using SecurityLayerForRedirect.Api;
 using SecurityLayerForRedirect.Api.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add Services configuration
+builder.Services.AddProviderConfiguration(builder.Configuration);
+
 // Add services to the container.
-
 builder.Services.AddControllers();
-
-builder.Services.AddRSAProviderConfiguration(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
